@@ -24,7 +24,7 @@ def main() raises:
 
 ## Install
 
-Requires Mojo 1.1. The only libc calls are `strtod` and `snprintf`, so no linker flags.
+Requires Mojo 1.2. The only libc calls are `strtod` and `snprintf`, so no linker flags.
 
 | Way | Command |
 |---|---|

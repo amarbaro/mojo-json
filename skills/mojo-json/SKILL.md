@@ -5,7 +5,7 @@ description: "Parse and write JSON from Mojo with Python json's exact semantics:
 
 # mojo-json
 
-JSON for Mojo 1.1, byte-identical with Python's `json`. Checked against JSONTestSuite and
+JSON for Mojo 1.2, byte-identical with Python's `json`. Checked against JSONTestSuite and
 generated files.
 
 ## Install
