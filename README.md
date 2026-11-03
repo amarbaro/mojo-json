@@ -1,6 +1,9 @@
 # mojo-json
 
-[![CI](https://github.com/amarbaro/mojo-json/actions/workflows/ci.yml/badge.svg)](https://github.com/amarbaro/mojo-json/actions/workflows/ci.yml)
+<!-- badges -->
+[![ci](https://github.com/amarbaro/mojo-json/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/amarbaro/mojo-json/actions/workflows/ci.yml) [![latest release](https://img.shields.io/github/v/release/amarbaro/mojo-json)](https://github.com/amarbaro/mojo-json/releases/latest) [![license](https://img.shields.io/github/license/amarbaro/mojo-json)](https://github.com/amarbaro/mojo-json/blob/main/LICENSE)
+<!-- /badges -->
+
 
 JSON for Mojo that behaves like Python's `json`: the int/float distinction, key order, and
 `json.dumps` output byte for byte. The parser is strict RFC 8259 (JSONTestSuite: 95 of 95
