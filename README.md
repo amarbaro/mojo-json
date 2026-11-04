@@ -4,6 +4,33 @@
 [![ci](https://github.com/amarbaro/mojo-json/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/amarbaro/mojo-json/actions/workflows/ci.yml) [![latest release](https://img.shields.io/github/v/release/amarbaro/mojo-json)](https://github.com/amarbaro/mojo-json/releases/latest) [![license](https://img.shields.io/github/license/amarbaro/mojo-json)](https://github.com/amarbaro/mojo-json/blob/main/LICENSE)
 <!-- /badges -->
 
+<!-- install -->
+Install: `pixi add mojo-json` once published. For now: `git clone https://github.com/amarbaro/mojo-json`, then `mojo run -I mojo-json/src app.mojo`.
+
+```mojo
+from json import Json, parse
+
+
+def main() raises:
+    var doc = parse('{"name": "gpu", "pids": [1, 2], "load": 0.5}')
+    print(doc.text("name"), doc.get("pids").len(), doc.opt_f("load").value())
+
+    var out = Json.object()
+    out.set("ok", Json.of(True))
+    out.set("n", Json.of(3))
+    var list = Json.array()
+    list.push(Json.of("a"))
+    out.set("items", list)
+    print(out.dumps())  # {"ok":true,"n":3,"items":["a"]}
+    print(out.dumps(False))  # {"ok": true, "n": 3, "items": ["a"]}, Python's default layout
+    print(out.dumps(False, 2))  # like indent=2
+```
+
+| | parse | dumps (compact) | peak RSS |
+|---|---|---|---|
+| mojo-json | 199 to 206 ms | 298 to 317 ms | 45.3 to 45.7 MB / 45.2 to 45.7 MB |
+<!-- /install -->
+
 
 JSON for Mojo that behaves like Python's `json`: the int/float distinction, key order, and
 `json.dumps` output byte for byte. The parser is strict RFC 8259 (JSONTestSuite: 95 of 95
