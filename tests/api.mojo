@@ -1,5 +1,6 @@
 # Every behaviour docs/api.md states. The decoder and encoder gates cover parse and dumps against
 # Python's json; this file pins the value API and the error cases.
+from std.time import perf_counter_ns
 from std.testing import assert_equal, assert_true, assert_false
 from json import Json, parse, NULL, BOOL, INT, FLOAT, STR, ARR, OBJ, MAX_DEPTH
 
@@ -165,10 +166,27 @@ def test_rejects() raises:
         assert_equal(String(e), "json: extra data at byte 4")
 
 
+def test_items_walk_is_linear() raises:
+    # review C, json P3: `for i in range(j.len()): j.at(i)` is O(n^2), 8.8 s for 100k elements
+    var text = String("[")
+    for i in range(100000):
+        text += ("," if i > 0 else "") + String(i)
+    var a = parse(text + "]")
+    var t0 = perf_counter_ns()
+    var sum = 0
+    for el in a.items():
+        sum += el.int()
+    assert_true(perf_counter_ns() - t0 < 500_000_000, "items() over 100k elements must take under 0.5 s")
+    assert_equal(sum, 4999950000)
+    assert_equal(len(parse('{"a":1,"b":[2]}').items()), 2)
+    assert_equal(len(parse("3").items()), 0)
+
+
 def main() raises:
     test_values()
     test_containers()
     test_dumps()
     test_parse()
     test_rejects()
+    test_items_walk_is_linear()
     print("api: ok")

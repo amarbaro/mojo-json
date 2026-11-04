@@ -47,6 +47,7 @@ A value of one of seven kinds: `NULL BOOL INT FLOAT STR ARR OBJ` (`UInt8` consta
 | `truthy()` | Python's `bool()`: false for null, `false`, 0, 0.0, "", `[]`, `{}`. |
 | `len()` | Elements of an array, members of an object, 0 for a scalar. |
 | `at(i)` | Element or member `i` as a copy; null past the end. O(i) plus the size of the copy. |
+| `items()` | The elements of an array or the member values of an object as copies, in one O(n) pass; empty for other kinds. Use it instead of `at(i)` in a loop. |
 | `key_at(i)` | The name of member `i`; empty past the end. |
 | `get(key)` | The member as a copy; null when absent or when this is not an object. The first of duplicate keys. |
 | `has(key)`, `text(key, default="")`, `opt_f(key)`, `opt_s(key)` | Whether the key exists; its string (or `default` when it is absent or not a string); its number or string as an `Optional`. |

@@ -92,8 +92,8 @@ The memory is the document itself: the file bytes, a 32-byte node per value, one
 
 ## Limits
 
-- `get` and `at` copy a subtree and `at(i)` is O(i): read scalars with `text`, `opt_f`,
-  `opt_s`, and keep a nested value instead of calling `get` again.
+- `get` and `at` copy a subtree and `at(i)` is O(i): walk a container with `for v in j.items()` (one
+  pass), read scalars with `text`, `opt_f`, `opt_s`, and keep a nested value instead of calling `get` again.
 - No streaming, no `object_hook`, no big integers, no `NaN` or `Infinity` (read or written
   by a parsed document; `dumps` still prints them for a `Float64` you put in yourself, as
   Python does).
