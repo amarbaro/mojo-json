@@ -14,8 +14,8 @@ DECODER=.work/decoder scripts/check.sh
 DECODER=.work/decoder ENCODER=.work/encoder GEN=.work/gen_bin scripts/selfcheck.sh
 DECODER=.work/decoder ENCODER=.work/encoder GEN=.work/gen_bin scripts/check_gen.sh
 .work/t/api || { echo "FAIL api: tests/api.mojo"; exit 1; }
-# property smoke step: needs the sibling mojo-proptest checkout (or PROPTEST=<its src>)
-PT=${PROPTEST:-../mojo-proptest/src}; [ -d "$PT" ] || { echo "FAIL setup: $PT missing (mojo-proptest)"; exit 1; }
+# property smoke step: mojo-proptest from $PROPTEST, the sibling checkout, or a pinned fetch
+PT=$(scripts/proptest.sh)
 $M build -I src -I "$PT" tests/prop.mojo -o .work/t/prop 2>.work/build.err || { echo "FAIL build: tests/prop.mojo"; cat .work/build.err; exit 1; }
 .work/t/prop || { echo "FAIL prop: tests/prop.mojo"; exit 1; }
 .work/t/quickstart > /dev/null || { echo "FAIL example: examples/quickstart.mojo"; exit 1; }
