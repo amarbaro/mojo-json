@@ -13,4 +13,3 @@ def main() raises:
     out.set("items", list)
     print(out.dumps())  # {"ok":true,"n":3,"items":["a"]}
     print(out.dumps(False))  # {"ok": true, "n": 3, "items": ["a"]}, Python's default layout
-    print(out.dumps(False, 2))  # like indent=2

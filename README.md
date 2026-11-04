@@ -23,14 +23,8 @@ def main() raises:
     out.set("items", list)
     print(out.dumps())  # {"ok":true,"n":3,"items":["a"]}
     print(out.dumps(False))  # {"ok": true, "n": 3, "items": ["a"]}, Python's default layout
-    print(out.dumps(False, 2))  # like indent=2
 ```
-
-| | parse | dumps (compact) | peak RSS |
-|---|---|---|---|
-| mojo-json | 199 to 206 ms | 298 to 317 ms | 45.3 to 45.7 MB / 45.2 to 45.7 MB |
 <!-- /install -->
-
 
 JSON for Mojo that behaves like Python's `json`: the int/float distinction, key order, and
 `json.dumps` output byte for byte. The parser is strict RFC 8259 (JSONTestSuite: 95 of 95
@@ -38,29 +32,7 @@ JSON for Mojo that behaves like Python's `json`: the int/float distinction, key 
 checked against `json.dumps` on generated files in four layouts, and a parsed document is two
 buffers with no allocation per value.
 
-```mojo
-from json import Json, parse
-
-def main() raises:
-    var doc = parse('{"name": "gpu", "pids": [1, 2], "load": 0.5}')
-    print(doc.text("name"), doc.get("pids").len(), doc.opt_f("load").value())
-
-    var out = Json.object()
-    out.set("ok", Json.of(True))
-    out.set("n", Json.of(3))
-    print(out.dumps())             # {"ok":true,"n":3}
-    print(out.dumps(False))        # {"ok": true, "n": 3}   Python's default layout
-```
-
-## Install
-
 Requires Mojo 1.2. The only libc calls are `strtod` and `snprintf`, so no linker flags.
-
-| Way | Command |
-|---|---|
-| Source path | `mojo build -I path/to/mojo-json/src app.mojo` |
-| Precompiled | `mojo precompile src/json -o json.mojoc`, then put it next to your code |
-| Vendor | copy `src/json/` into your project |
 
 ## What you get
 
@@ -92,8 +64,8 @@ The memory is the document itself: the file bytes, a 32-byte node per value, one
 
 ## Limits
 
-- `get` and `at` copy a subtree and `at(i)` is O(i): walk a container with `for v in j.items()` (one
-  pass), read scalars with `text`, `opt_f`, `opt_s`, and keep a nested value instead of calling `get` again.
+- `get` and `at` copy a subtree and `at(i)` is O(i): read scalars with `text`, `opt_f`,
+  `opt_s`, and keep a nested value instead of calling `get` again.
 - No streaming, no `object_hook`, no big integers, no `NaN` or `Infinity` (read or written
   by a parsed document; `dumps` still prints them for a `Float64` you put in yourself, as
   Python does).
