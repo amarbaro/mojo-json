@@ -5,7 +5,8 @@
 <!-- /badges -->
 
 <!-- install -->
-Install: `pixi add mojo-json` once published. For now: `git clone https://github.com/amarbaro/mojo-json`, then `mojo run -I mojo-json/src app.mojo`.
+Install: `pixi workspace channel add https://conda.modular.com/max https://prefix.dev/amarbaro/amarbaro`, then `pixi add mojo-json` (import `json`). From source: `git clone https://github.com/amarbaro/mojo-json`, then `mojo run -I mojo-json/src app.mojo`.
+Toolchains: Mojo 1.2 stable, and the nightly 1.3.0.dev2026110805 in the weekly [mojo-libs](https://github.com/amarbaro/mojo-libs) matrix (36 libraries on stable, 35 on nightly).
 
 ```mojo
 from json import Json, parse
