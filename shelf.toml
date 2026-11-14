@@ -1,0 +1,4 @@
+name = "mojo-json"
+version = "0.1.4"
+description = "JSON for Mojo, byte-identical with Python json"
+tags = ["mojo", "json", "parser"]
